@@ -1,1 +1,83 @@
 <?php
+
+namespace YourName\LaravelTicket\Models;
+
+use App\Models\Support;
+use App\Models\TicketCategory;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Ticket extends Model
+{
+    use HasFactory;
+    protected $guarded = [];
+
+    const STATUS_OPTIONS = [
+        'open' => 'Open',
+        'in_progress' => 'In Progress',
+        'closed' => 'Closed',
+        'resolved' => 'Resolved'
+    ];
+
+    const PRIORITY_OPTIONS = [
+        1 => 'Low',
+        2 => 'Normal',
+        3 => 'High'
+    ];
+
+    public function scopeAuthInstitute($query)
+    {
+        if (Auth::user()->user_type != User::ADMIN) {
+            $query = $query->where('institute_id', Auth::user()->institute_id);
+        }
+        return $query;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(TicketCategory::class, 'ticket_category_id');
+    }
+
+    public function statusValue($value)
+    {
+        return self::STATUS_OPTIONS[$value];
+    }
+    public function priorityValue($value)
+    {
+        return self::PRIORITY_OPTIONS[$value];
+    }
+
+    public function replied(){
+        return $this->belongsTo(Ticket::class,'replied_id');
+    }
+
+    public function getImagePathAttribute()
+    {
+        if ( $this->image && file_exists(public_path('uploads/support_tickets/' . $this->image)))
+            return asset('uploads/support_tickets/' . $this->image);
+        else
+            return "";
+    }
+
+
+    // Scope for status
+    public function scopeStatus($query, $status)
+    {
+        if (array_key_exists($status, self::STATUS_OPTIONS)) {
+            return $query->where('status', $status);
+        }
+
+        return $query;
+    }
+
+    // Scope for priority
+    public function scopePriority($query, $priority)
+    {
+        if (array_key_exists($priority, self::PRIORITY_OPTIONS)) {
+            return $query->where('priority', $priority);
+        }
+
+        return $query;
+    }
+}
