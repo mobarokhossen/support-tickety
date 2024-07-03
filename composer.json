@@ -1,23 +1,27 @@
 {
-  "name": "esmobarok/support-tickety",
+  "name": "mobaroklab/support-tickety",
   "description": "A Laravel package for managing Support tickets",
   "type": "library",
+  "authors": [
+    {
+      "name": "Mobarok Hossen",
+      "email": "mobarokaiub@gmail.com"
+    }
+  ],
   "require": {
     "php": "^7.3|^8.0",
     "illuminate/support": "^7.0|^8.0|^9.0"
   },
   "autoload": {
     "psr-4": {
-      "esmobarok\\support-tickety\\": "src/"
+      "MobarokLab\\SupportTickety\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "esmobarok\\support-tickety\\LaravelTicketServiceProvider"
+        "MobarokLab\\SupportTickety\\SupportTicketServiceProvider"
       ]
     }
   }
-}
-
 }

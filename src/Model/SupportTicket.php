@@ -1,14 +1,12 @@
 <?php
 
-namespace YourName\LaravelTicket\Models;
+namespace App\Models;
 
-use App\Models\Support;
-use App\Models\TicketCategory;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
-class Ticket extends Model
+class SupportTicket extends Model
 {
     use HasFactory;
     protected $guarded = [];
@@ -26,17 +24,9 @@ class Ticket extends Model
         3 => 'High'
     ];
 
-    public function scopeAuthInstitute($query)
-    {
-        if (Auth::user()->user_type != User::ADMIN) {
-            $query = $query->where('institute_id', Auth::user()->institute_id);
-        }
-        return $query;
-    }
-
     public function category()
     {
-        return $this->belongsTo(TicketCategory::class, 'ticket_category_id');
+        return $this->belongsTo(SupportCategory::class, 'ticket_category_id');
     }
 
     public function statusValue($value)
@@ -49,7 +39,7 @@ class Ticket extends Model
     }
 
     public function replied(){
-        return $this->belongsTo(Ticket::class,'replied_id');
+        return $this->belongsTo(SupportTicket::class,'replied_id');
     }
 
     public function getImagePathAttribute()

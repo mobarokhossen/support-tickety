@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Mobarok-RC
- * Date: 5/9/2023
- * Time: 11:35 AM
- */
-
-?>
-@extends('layouts.skeleton')
+@extends('support-tickety::layouts.app')
 @section('title','Tickets List')
 
 @section('content')
@@ -41,7 +32,7 @@
                             <div class="e-panel card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        {!! $dataTable->table() !!}
+
                                     </div>
 
                                 </div>

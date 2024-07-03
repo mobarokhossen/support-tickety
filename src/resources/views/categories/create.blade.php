@@ -1,16 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Mobarok-RC
- * Date: 5/9/2023
- * Time: 11:35 AM
- */
-
-?>
-
-
-@extends('vendor.layouts.app')
-
+@extends('support-tickety::layouts.app')
 @section('content')
     <div class="container">
         <div class="row">

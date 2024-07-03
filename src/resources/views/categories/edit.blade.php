@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Mobarok-RC
- * Date: 5/9/2023
- * Time: 11:35 AM
- */
-
-?>
-@extends('layouts.skeleton')
+@extends('support-tickety::layouts.app')
 @section('title','Edit Ticket Category')
 
 @section('content')
