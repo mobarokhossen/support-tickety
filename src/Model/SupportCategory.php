@@ -1,6 +1,6 @@
 <?php
 
-namespace esmobarok\LaravelTicket\Models;
+namespace MobarokLab\SupportTickety\Models;
 
 use App\Models\SupportTicket;
 use Illuminate\Database\Eloquent\Model;
