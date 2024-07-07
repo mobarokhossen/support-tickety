@@ -1,5 +1,5 @@
 @extends('support-tickety::layouts.app')
-@section('title','Ticket Category List')
+@section('title','Support Category List')
 
 @section('content')
 
@@ -10,13 +10,13 @@
             <!--Page header-->
             <div class="page-header d-lg-flex d-block">
                 <div class="page-leftheader">
-                    <div class="page-title"> Ticket Category List</div>
+                    <div class="page-title"> Support Category List</div>
                 </div>
                 <div class="page-rightheader ms-md-auto">
                     <div class=" btn-list">
 
-                        <a href="{{ route('business_admin.ticket-categories.create') }}"  class="btn btn-primary">
-                            <i class="fa fa-plus"></i> Add Ticket Category
+                        <a href="{{ route('ticket-categories.create') }}"  class="btn btn-primary">
+                            <i class="fa fa-plus"></i> Add Support Category
                         </a>
 
                     </div>
@@ -32,7 +32,36 @@
                             <div class="e-panel card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        {!! $dataTable->table() !!}
+                                        <div class="col-lg-12">
+                                            <table class="table table-striped" id="dataTable">
+
+                                                <tbody>
+                                                <tr>
+                                                    <th> #SL</th>
+                                                    <th> Name</th>
+                                                    <th> Action</th>
+                                                </tr>
+                                                @foreach($supportCategory as $key=>$value)
+                                                    <tr>
+                                                        <td> {{ $key+1 }} </td>
+                                                        <td> {{ $value->name }} </td>
+                                                        <td>
+                                                            <a href="{{ route('support-categories.edit', $value->id) }}"
+                                                               class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> Edit</a>
+                                                            <form action="{{ route('support-categories.destroy', $value->id) }}" method="POST" style="display:inline-block;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> Delete</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-md-12 text-right">
+                                            {{ $supportCategory->links() }}
+                                        </div>
                                     </div>
 
                                 </div>

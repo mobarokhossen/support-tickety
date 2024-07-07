@@ -2,8 +2,8 @@
 
 namespace MobarokLab\SupportTickety\Models;
 
-use App\Models\SupportTicket;
 use Illuminate\Database\Eloquent\Model;
+use MobarokLab\SupportTickety\Models\SupportTicket;
 
 class SupportCategory extends Model
 {

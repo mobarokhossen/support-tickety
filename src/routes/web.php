@@ -1,8 +1,12 @@
 <?php
 
-use YourName\LaravelTicket\Http\Controllers\TicketController;
+use Illuminate\Support\Facades\Route;
+use MobarokLab\SupportTickety\Http\Controllers\SupportTicketController;
+use MobarokLab\SupportTickety\Http\Controllers\SupportCategoryController;
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
-    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+
+    Route::resource('support-categories', SupportCategoryController::class);
+    Route::resource('tickets', SupportTicketController::class);
+
 });

@@ -14,7 +14,7 @@ class CreateSupportTicketsTable extends Migration
             $table->string('title', 300);
             $table->string('description', 2000);
             $table->string('image', 200)->nullable();
-            $table->unsignedBigInteger('ticket_category_id');
+            $table->unsignedBigInteger('support_category_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('replied_id')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

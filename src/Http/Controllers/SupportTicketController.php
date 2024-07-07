@@ -2,25 +2,27 @@
 
 namespace MobarokLab\SupportTickety\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use MobarokLab\SupportTickety\Models\SupportTicket;
 use MobarokLab\SupportTickety\Models\SupportCategory;
 use Illuminate\Http\Request;
 
-class TicketController extends Controller
+class SupportTicketController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('tickets.index');
+        $tickets = SupportTicket::all();
+        return view('support-tickety::tickets.index'. compact('tickets'));
     }
 
 
     public function create()
     {
-        $data['categories'] = TicketCategory::all();
-        return view('tickets.create', $data);
+        $data['categories'] = SupportCategory::all();
+        return view('support-tickety::tickets.create', $data);
     }
 
     public function store(Request $request)
@@ -50,24 +52,29 @@ class TicketController extends Controller
         $inputs = $request->except('attachment');
         Ticket::create($inputs);
 
-        return redirect()->route('business_admin.tickets.index')
+        return redirect()->route('tickets.index')
             ->with('success', 'Ticket created successfully.');
     }
 
-    public function show(Ticket $ticket)
+    public function show($id)
     {
-        $categories = TicketCategory::all();
-        return view('tickets.show', compact('ticket','categories' ));
+        $ticket = SupportTicket::findOrFail($id);
+        $categories = SupportCategory::all();
+
+        return view('support-tickety::tickets.show', compact('ticket','categories' ));
     }
 
-    public function edit(Ticket $ticket)
+    public function edit($id)
     {
-        $categories = TicketCategory::all();
-        return view('tickets.edit', compact('ticket','categories' ));
+        $ticket = SupportTicket::findOrFail($id);
+        $categories = SupportCategory::all();
+        return view('support-tickety::tickets.edit', compact('ticket','categories' ));
     }
 
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request, $id)
     {
+        $ticket = SupportTicket::findOrFail($id);
+
         $request->validate([
             'description' => 'required|max:2000',
             'status' => 'required',
@@ -102,12 +109,13 @@ class TicketController extends Controller
 
         $ticket->update($inputs);
 
-        return redirect()->route('business_admin.tickets.index')
+        return redirect()->route('tickets.index')
             ->with('success', 'Ticket updated successfully.');
     }
 
-    public function destroy(Ticket $ticket)
+    public function destroy($id)
     {
+        $ticket = SupportTicket::findOrFail($id);
         $ticket->delete();
 
         return response()->json([

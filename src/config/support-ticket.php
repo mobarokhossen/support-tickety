@@ -2,6 +2,9 @@
 
 return [
 
+    'default_priority' => 2, // Normal
+    'default_status' => 'open',
+
     'status' => [
 
         'open' => [

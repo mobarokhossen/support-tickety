@@ -28,6 +28,8 @@ class SupportTicketServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/resources/views' => resource_path('views/vendor/support-tickety'),
         ]);
+
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
     }
 
     public function register()
